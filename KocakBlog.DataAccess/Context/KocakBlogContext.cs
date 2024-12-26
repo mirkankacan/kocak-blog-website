@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KocakBlog.DataAccess.Context
 {
-    public class KocakBlogContext : IdentityDbContext<AppUser, AppRole, int>
+    public class KocakBlogContext : IdentityDbContext<AppUser, AppRole, Guid>
     {
         public KocakBlogContext(DbContextOptions options) : base(options)
         {

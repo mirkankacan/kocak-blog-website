@@ -7,7 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\KocakBlog.DataAccess\KocakBlog.DataAccess.csproj" />
+    <ProjectReference Include="..\KocakBlog.DTO\KocakBlog.DTO.csproj" />
   </ItemGroup>
 
 </Project>

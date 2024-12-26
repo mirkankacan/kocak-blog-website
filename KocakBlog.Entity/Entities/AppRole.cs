@@ -2,7 +2,7 @@
 
 namespace KocakBlog.Entity.Entities
 {
-    public class AppRole : IdentityRole<int>
+    public class AppRole : IdentityRole<Guid>
     {
     }
 }

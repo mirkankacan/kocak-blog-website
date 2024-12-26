@@ -1,68 +1,101 @@
-﻿using KocakBlog.DataAccess.Abstract;
-using KocakBlog.DataAccess.Context;
+﻿using KocakBlog.DataAccess.Context;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace KocakBlog.DataAccess.Repositories
 {
-    public class GenericRepository<T> : IRepository<T> where T : class
+    public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        protected readonly KocakBlogContext _context;
+        private readonly KocakBlogContext _context;
+        private readonly DbSet<T> _dbSet;
 
         public GenericRepository(KocakBlogContext context)
         {
             _context = context;
+            _dbSet = _context.Set<T>();
         }
 
-        public DbSet<T> Table { get => _context.Set<T>(); }
-
-        public async Task<int> CountAsync()
+        public async Task AddAsync(T entity)
         {
-            return await Table.CountAsync();
+            await _dbSet.AddAsync(entity);
         }
 
-        public async Task CreateAsync(T entity)
+        public async Task AddRangeAsync(IEnumerable<T> entities)
         {
-            await Table.AddAsync(entity);
-            await _context.SaveChangesAsync();
+            await _dbSet.AddRangeAsync(entities);
         }
 
-        public async Task DeleteAsync(int id)
+        public void Delete(T entity)
         {
-            var entity = await Table.FindAsync(id);
-            Table.Remove(entity);
-            await _context.SaveChangesAsync();
+            _dbSet.Remove(entity);
         }
 
-        public async Task<int> FilteredCountAsync(Expression<Func<T, bool>> predicate)
+        public async Task DeleteAsync(Guid id)
         {
-            return await Table.Where(predicate).CountAsync();
+            var entity = await GetByIdAsync(id);
+            if (entity != null)
+            {
+                _dbSet.Remove(entity);
+            }
         }
 
-        public async Task<T> GetByFilterAsync(Expression<Func<T, bool>> predicate)
+        public async Task DeleteAsync(Expression<Func<T, bool>> predicate)
         {
-            return await Table.Where(predicate).FirstOrDefaultAsync();
+            var entity = await _dbSet.FirstOrDefaultAsync(predicate);
+            if (entity != null)
+            {
+                _dbSet.Remove(entity);
+            }
         }
 
-        public async Task<T> GetByIdAsync(int id)
+        public void DeleteRange(IEnumerable<T> entities)
         {
-            return await Table.FindAsync(id);
+            _dbSet.RemoveRange(entities);
         }
 
-        public async Task<List<T>> GetFilteredListAsync(Expression<Func<T, bool>> predicate)
+        public async Task<List<T>> GetAllAsync()
         {
-            return await Table.Where(predicate).ToListAsync();
+            return await _dbSet.ToListAsync();
         }
 
-        public async Task<List<T>> GetListAsync()
+        public IQueryable<T> GetAllQuery()
         {
-            return await Table.ToListAsync();
+            return _dbSet.AsNoTracking();
         }
 
-        public async Task UpdateAsync(T entity)
+        public async Task<List<T>> GetAllAsync(Expression<Func<T, bool>> predicate)
         {
-            Table.Update(entity);
-            await _context.SaveChangesAsync();
+            return await _dbSet.Where(predicate).ToListAsync();
+        }
+
+        public async Task<T> GetByIdAsync(Guid id)
+        {
+            return await _dbSet.FindAsync(id);
+        }
+
+        public async Task<T> GetByIdAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await _dbSet.FirstOrDefaultAsync(predicate);
+        }
+
+        public void Update(T entity)
+        {
+            _dbSet.Update(entity);
+        }
+
+        public void UpdateRange(IEnumerable<T> entities)
+        {
+            _dbSet.UpdateRange(entities);
+        }
+
+        public async Task<bool> AnyAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await _dbSet.AnyAsync(predicate);
+        }
+
+        public async Task<bool> ContainsAsync(T entity)
+        {
+            return await _dbSet.ContainsAsync(entity);
         }
     }
 }
