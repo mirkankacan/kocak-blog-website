@@ -1,7 +1,8 @@
 ﻿using AspNetCoreRateLimit;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using KocakBlog.Business.Abstract;
 using KocakBlog.Business.Concrete;
-using KocakBlog.Business.MappingProfiles;
 using KocakBlog.DataAccess.Repositories;
 using KocakBlog.DataAccess.UnitOfWork;
 
@@ -15,8 +16,7 @@ namespace KocakBlog.API.Extensions
 
             #region AutoMapper
 
-            services.AddAutoMapper(typeof(BlogProfile).Assembly);
-            services.AddAutoMapper(typeof(BlogCategoryProfile).Assembly);
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             #endregion AutoMapper
 
@@ -37,6 +37,14 @@ namespace KocakBlog.API.Extensions
             services.AddInMemoryRateLimiting();
 
             #endregion RateLimiting
+
+            #region Validators
+
+            builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
+            builder.Services.AddFluentValidationAutoValidation();
+            builder.Services.AddFluentValidationClientsideAdapters();
+
+            #endregion Validators
         }
     }
 }
