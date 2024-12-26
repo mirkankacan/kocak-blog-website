@@ -1,24 +1,24 @@
 ﻿using KocakBlog.Business.Abstract;
-using KocakBlog.DTO.DTOs.BlogDTOs;
+using KocakBlog.DTO.DTOs.BlogCategoryDTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KocakBlog.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BlogsController : ControllerBase
+    public class BlogCategoriesController : ControllerBase
     {
-        private readonly IBlogService _blogService;
+        private readonly IBlogCategoryService _blogCategoryService;
 
-        public BlogsController(IBlogService blogService)
+        public BlogCategoriesController(IBlogCategoryService blogCategoryService)
         {
-            _blogService = blogService;
+            _blogCategoryService = blogCategoryService;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAsync()
         {
-            var response = await _blogService.GetBlogsAsync();
+            var response = await _blogCategoryService.GetBlogCategoriesAsync();
             if (!response.Success)
             {
                 return BadRequest(response.Message);
@@ -29,7 +29,7 @@ namespace KocakBlog.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetByIdAsync(int id)
         {
-            var response = await _blogService.GetBlogByIdAsync(id);
+            var response = await _blogCategoryService.GetBlogCategoryByIdAsync(id);
             if (!response.Success)
             {
                 return NotFound(response.Message);
@@ -40,7 +40,7 @@ namespace KocakBlog.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
-            var response = await _blogService.DeleteBlogAsync(id);
+            var response = await _blogCategoryService.DeleteBlogCategoryAsync(id);
             if (!response.Success)
             {
                 return BadRequest(response.Message);
@@ -49,9 +49,9 @@ namespace KocakBlog.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAsync(CreateBlogDTO createBlogDTO)
+        public async Task<IActionResult> CreateAsync(CreateBlogCategoryDTO createBlogCategoryDTO)
         {
-            var response = await _blogService.CreateBlogAsync(createBlogDTO);
+            var response = await _blogCategoryService.CreateBlogCategoryAsync(createBlogCategoryDTO);
             if (!response.Success)
             {
                 return BadRequest(response.Message);
@@ -60,9 +60,9 @@ namespace KocakBlog.API.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateAsync(UpdateBlogDTO updateBlogDTO)
+        public async Task<IActionResult> UpdateAsync(UpdateBlogCategoryDTO updateBlogCategoryDTO)
         {
-            var response = await _blogService.UpdateBlogAsync(updateBlogDTO);
+            var response = await _blogCategoryService.UpdateBlogCategoryAsync(updateBlogCategoryDTO);
             if (!response.Success)
             {
                 return BadRequest(response.Message);

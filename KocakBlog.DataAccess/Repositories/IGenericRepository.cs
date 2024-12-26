@@ -10,7 +10,7 @@ namespace KocakBlog.DataAccess.Repositories
 
         void Delete(T entity);
 
-        Task DeleteAsync(Guid id);
+        Task DeleteAsync(int id);
 
         Task DeleteAsync(Expression<Func<T, bool>> predicate);
 
@@ -22,7 +22,7 @@ namespace KocakBlog.DataAccess.Repositories
 
         Task<List<T>> GetAllAsync(Expression<Func<T, bool>> predicate);
 
-        Task<T> GetByIdAsync(Guid id);
+        Task<T> GetByIdAsync(int id);
 
         Task<T> GetByIdAsync(Expression<Func<T, bool>> predicate);
 

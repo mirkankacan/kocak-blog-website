@@ -2,7 +2,7 @@
 {
     public class UpdateBlogCategoryDTO
     {
-        public Guid BlogCategoryId { get; set; }
+        public int BlogCategoryId { get; set; }
         public string Name { get; set; }
     }
 }

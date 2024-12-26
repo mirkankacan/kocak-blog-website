@@ -2,7 +2,7 @@
 
 namespace KocakBlog.Entity.Entities
 {
-    public class AppUser : IdentityUser<Guid>
+    public class AppUser : IdentityUser<int>
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

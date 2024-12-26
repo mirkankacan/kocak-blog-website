@@ -1,4 +1,4 @@
-﻿namespace KocakBlog.Business.Concrete
+﻿namespace KocakBlog.Business.Responses
 {
     public class ServiceResponse<T>
     {

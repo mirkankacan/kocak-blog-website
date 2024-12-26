@@ -1,6 +1,7 @@
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using KocakBlog.Business.Abstract;
+using KocakBlog.Business.Responses;
 using KocakBlog.DataAccess.UnitOfWork;
 using KocakBlog.DTO.DTOs.BlogDTOs;
 using KocakBlog.Entity.Entities;
@@ -48,7 +49,7 @@ namespace KocakBlog.Business.Concrete
             return response;
         }
 
-        public async Task<ServiceResponse<bool>> DeleteBlogAsync(Guid id)
+        public async Task<ServiceResponse<bool>> DeleteBlogAsync(int id)
         {
             var response = new ServiceResponse<bool>();
 
@@ -78,7 +79,7 @@ namespace KocakBlog.Business.Concrete
             return response;
         }
 
-        public async Task<ServiceResponse<ResultBlogDTO>> GetBlogByIdAsync(Guid id)
+        public async Task<ServiceResponse<ResultBlogDTO>> GetBlogByIdAsync(int id)
         {
             var response = new ServiceResponse<ResultBlogDTO>();
 

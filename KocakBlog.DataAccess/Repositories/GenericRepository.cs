@@ -30,7 +30,7 @@ namespace KocakBlog.DataAccess.Repositories
             _dbSet.Remove(entity);
         }
 
-        public async Task DeleteAsync(Guid id)
+        public async Task DeleteAsync(int id)
         {
             var entity = await GetByIdAsync(id);
             if (entity != null)
@@ -68,7 +68,7 @@ namespace KocakBlog.DataAccess.Repositories
             return await _dbSet.Where(predicate).ToListAsync();
         }
 
-        public async Task<T> GetByIdAsync(Guid id)
+        public async Task<T> GetByIdAsync(int id)
         {
             return await _dbSet.FindAsync(id);
         }
