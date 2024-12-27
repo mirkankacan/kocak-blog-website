@@ -1,0 +1,170 @@
+﻿@model List<ResultBlogDTO>
+<section class="blog">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="blog-section-title">
+                    <h2>Articles</h2>
+                    <p>View the latest news on Blogger</p>
+                </div>
+                @foreach (var item in Model)
+                {
+
+                    <article class="blog-post">
+                        <div class="blog-post-thumb">
+                            <img src="@item.ImageUrl" alt="@item.Title image" />
+                        </div>
+                        <div class="blog-post-content">
+                            <div class="blog-post-tag">
+                                <a href="category.html">@item.BlogCategory.Name</a>
+                            </div>
+                            <div class="blog-post-title">
+                                <a href="single-blog.html">@item.Title</a>
+                            </div>
+                            <div class="blog-post-meta">
+                                <ul>
+                                    <li>By <a href="about.html">@(item.AppUser.FirstName + " " + item.AppUser.LastName)</a></li>
+                                    <li>
+                                        <i class="fa fa-clock-o"></i>
+
+                                        @item.CreatedAt.ToString("MMMM dd, yyyy", new CultureInfo("tr-TR")) - @ReadingTimeHelper.CalculateReadingTime(item.Content) dk
+                                    </li>
+                                </ul>
+                            </div>
+                            <p>
+                                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+                                nonumy.
+                            </p>
+                            <a href="single-blog.html" class="blog-post-action">okumaya devam et <i class="fa fa-angle-right"></i></a>
+                        </div>
+                    </article>
+
+                }
+                <div class="blog-post-pagination">
+                    <nav aria-label="Page navigation example" class="nav-bg">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a class="page-link active" href="#">1</a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">4</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="blog-post-widget">
+                    <div class="latest-widget-title">
+                        <h2>Trending post</h2>
+                    </div>
+                    <div class="latest-widget">
+                        <div class="latest-widget-thum">
+                            <a href="single-blog.html">
+                                <img src="~/Blogge-1.0.0.0/images/blog/blog-thum-8.png" alt="blog-thum" />
+                            </a>
+                            <div class="icon">
+                                <a href="single-blog.html">
+                                    <img src="~/Blogge-1.0.0.0/images/blog/icon.svg" alt="icon" />
+                                </a>
+                            </div>
+                        </div>
+                        <div class="latest-widget-content">
+                            <div class="content-title">
+                                <a href="single-blog.html">Five Things You Need to Know to Start Your Day</a>
+                            </div>
+                            <div class="content-meta">
+                                <ul>
+                                    <li>
+                                        <i class="fa fa-clock-o"></i>
+                                        October 19, 2020 - 2 min
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="latest-widget">
+                        <div class="latest-widget-thum">
+                            <a href="single-blog.html">
+                                <img src="~/Blogge-1.0.0.0/images/blog/blog-thum-9.png" alt="blog-thum" />
+                            </a>
+                            <div class="icon">
+                                <a href="single-blog.html">
+                                    <img src="~/Blogge-1.0.0.0/images/blog/icon.svg" alt="icon" />
+                                </a>
+                            </div>
+                        </div>
+                        <div class="latest-widget-content">
+                            <div class="content-title">
+                                <a href="single-blog.html">Five Things You Need to Know to Start Your Day</a>
+                            </div>
+                            <div class="content-meta">
+                                <ul>
+                                    <li>
+                                        <i class="fa fa-clock-o"></i>
+                                        October 19, 2020 - 2 min
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="latest-widget">
+                        <div class="latest-widget-thum">
+                            <a href="single-blog.html">
+                                <img src="~/Blogge-1.0.0.0/images/blog/blog-thum-10.png" alt="blog-thum" />
+                            </a>
+                            <div class="icon">
+                                <a href="single-blog.html">
+                                    <img src="~/Blogge-1.0.0.0/images/blog/icon.svg" alt="icon" />
+                                </a>
+                            </div>
+                        </div>
+                        <div class="latest-widget-content">
+                            <div class="content-title">
+                                <a href="single-blog.html">Five Things You Need to Know to Start Your Day</a>
+                            </div>
+                            <div class="content-meta">
+                                <ul>
+                                    <li>
+                                        <i class="fa fa-clock-o"></i>
+                                        October 19, 2020 - 2 min
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="latest-widget">
+                        <div class="latest-widget-thum">
+                            <a href="single-blog.html">
+                                <img src="~/Blogge-1.0.0.0/images/blog/blog-thum-11.png" alt="blog-thum" />
+                            </a>
+                            <div class="icon">
+                                <a href="single-blog.html">
+                                    <img src="~/Blogge-1.0.0.0/images/blog/icon.svg" alt="icon" />
+                                </a>
+                            </div>
+                        </div>
+                        <div class="latest-widget-content">
+                            <div class="content-title">
+                                <a href="single-blog.html">Five Things You Need to Know to Start Your Day</a>
+                            </div>
+                            <div class="content-meta">
+                                <ul>
+                                    <li>
+                                        <i class="fa fa-clock-o"></i>
+                                        October 19, 2020 - 2 min
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -9,7 +9,8 @@ namespace KocakBlog.Business.MappingProfiles
         public BlogProfile()
         {
             CreateMap<Blog, ResultBlogDTO>()
-                .ForMember(dest => dest.BlogCategory, opt => opt.MapFrom(src => src.BlogCategory));
+                .ForMember(dest => dest.BlogCategory, opt => opt.MapFrom(src => src.BlogCategory))
+                .ForMember(dest => dest.AppUser, opt => opt.MapFrom(src => src.AppUser));
             CreateMap<CreateBlogDTO, Blog>();
             CreateMap<UpdateBlogDTO, Blog>();
         }

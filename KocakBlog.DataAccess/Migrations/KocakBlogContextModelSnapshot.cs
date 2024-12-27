@@ -81,6 +81,9 @@ namespace KocakBlog.DataAccess.Migrations
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsPermGranted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -139,6 +142,9 @@ namespace KocakBlog.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BlogId"));
 
+                    b.Property<int>("AppUserId")
+                        .HasColumnType("int");
+
                     b.Property<int>("BlogCategoryId")
                         .HasColumnType("int");
 
@@ -150,17 +156,18 @@ namespace KocakBlog.DataAccess.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ImageUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("UpdatedAt")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.HasKey("BlogId");
+
+                    b.HasIndex("AppUserId");
 
                     b.HasIndex("BlogCategoryId");
 
@@ -289,11 +296,19 @@ namespace KocakBlog.DataAccess.Migrations
 
             modelBuilder.Entity("KocakBlog.Entity.Entities.Blog", b =>
                 {
+                    b.HasOne("KocakBlog.Entity.Entities.AppUser", "AppUser")
+                        .WithMany("Blogs")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("KocakBlog.Entity.Entities.BlogCategory", "BlogCategory")
                         .WithMany("Blogs")
                         .HasForeignKey("BlogCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("AppUser");
 
                     b.Navigation("BlogCategory");
                 });
@@ -347,6 +362,11 @@ namespace KocakBlog.DataAccess.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("KocakBlog.Entity.Entities.AppUser", b =>
+                {
+                    b.Navigation("Blogs");
                 });
 
             modelBuilder.Entity("KocakBlog.Entity.Entities.BlogCategory", b =>
